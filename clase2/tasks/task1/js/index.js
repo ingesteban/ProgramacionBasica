@@ -18,8 +18,8 @@
 //console.log(pikachu);
 
 
-function Pokemon(n, v, a){
-	this.grito = "Pika!";
+function Pokemon(n, v, a, g){
+	this.grito = g;
 	this.nombre = n;
 	this.vida = v;
 	this.ataque = a;
@@ -32,13 +32,21 @@ var pikachu = new Pokemon("Pikachu",100,55);
 var rattata = new Pokemon("Rattata",40,13);
 
 
-function inicio()
+function inicio(nombre,vida,ataque,grito)
 {
-    var rattata = new Pokemon("Rattata", 40, 2);
-    rattata.vida = rattata.vida - 13;
-    nombrePokemon.textContent = rattata.nombre;
+    var pokemon = new Pokemon(nombre,vida,ataque,grito);
+    nombrePokemon.textContent = pokemon.nombre;
+    
+    var img = document.createElement('img');
+    img.src = 'images/'+pokemon.nombre.toLowerCase()+'.png';
+    img.className = "image-pokemon";
+        
+    var datos = "El pokemon se llama "+pokemon.nombre+", tiene una vida de "+pokemon.vida+", un ataque de "+pokemon.ataque+" y su grito es "+pokemon.grito;
+    
+    console.log(datos);
+    
+    imgPokemon.appendChild(img);
+    datosPokemon.textContent = datos;
 }
 
-var img = document.createElement(img);
-img.attr('src',''images/paper.png'');
-nombrePokemon.appendChild(img);
+
