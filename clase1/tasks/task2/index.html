@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>Basic Game # 1</title>
+	 
+	    <!-- CSS de Bootstrap -->
+	    <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	 	<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+        <link href="css/style.css" rel="stylesheet" media="screen">
+
+
+  	</head>
+	<body>
+        <div class="main-contenu">
+    		<div class="container show-top-margin separate-rows tall-rows contenu">
+    			<h1 >Stone - Paper - Scissors - Lizard - Spoke</h1>
+    			<div class="row">
+    				<div class="col-xs-12 alin-cent">
+    					<p>Please select one option for the game</p>
+    				</div>
+    			</div>
+        		<div class="row">
+        			<div class="col-xs-1"></div>
+        			<div class="col-xs-2">
+        				<a href="#" class="option" data-id="1" id="stone" >
+        					<img class="imgs" src="images/stone.png" alt="stone" title="stone" />
+        				</a>
+        			</div>
+        			<div class="col-xs-2">
+        				<a href="#" class="option" data-id="2" id="paper" >
+        					<img class="imgs" src="images/paper.png" alt="paper" title="paper" />
+        				</a>
+        			</div>
+        			<div class="col-xs-2">
+        				<a href="#" class="option" data-id="3" id="scissors" >
+        					<img class="imgs" src="images/scissors.png" alt="scissors" title="scissors" />
+        				</a>
+        			</div>
+        			<div class="col-xs-2">
+        				<a href="#" class="option" data-id="4" id="lizard" >
+        					<img class="imgs" src="images/lizard.png" alt="lizard" title="lizard" />
+        				</a>
+        			</div>
+        			<div class="col-xs-2">
+        				<a href="#" class="option" data-id="5" id="spoke" >
+        					<img class="imgs" src="images/spoke.png" alt="spoke" title="spoke" />
+        				</a>
+        			</div>
+        			<div class="col-xs-1"></div>   			
+        		</div>
+        		<div class="row">
+        			
+                    <div class="col-xs-2 alin-left result-usr" id="result-usr">
+                        <p>Their choice was</p>
+                    </div>
+                    <div class="col-xs-1 alin-left result-usr">
+                        <img class="imgs" id="select-usr" />
+                        
+                    </div>
+                    <div class="col-xs-3 alin-left"></div>
+                    <div class="col-xs-2 alin-left result-js" id="result-js">
+                        <p>js choice was</p>
+                    </div>
+        			<div class="col-xs-2 alin-left result-js">
+                        <img class="imgs" id="select-js" />
+                    </div>
+                    <div class="col-xs-2"></div> 
+
+        		</div>
+                <div class="row">
+                    <div class="col-xs-3">                        
+                    </div>
+                    <div class="col-xs-6">
+                        <div id="result-game" >
+                        </div>
+                    </div>
+                    <div class="col-xs-3">                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">                        
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="alin-cent" >
+                            <a href="" id="anchor" onClick="location.reload();"  >Play Again </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">                        
+                    </div>
+                </div>
+        		
+
+    		</div>
+        </div>
+ 
+	    <!-- Librería jQuery requerida por los plugins de JavaScript -->
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+	    <script src="js/jquery-ui.min.js"></script>
+
+	    
+	 
+	    <!-- Todos los plugins JavaScript de Bootstrap (también puedes
+	         incluir archivos JavaScript individuales de los únicos
+	         plugins que utilices) -->
+		<script src="js/index.js" type="text/javascript"></script>
+
+  </body>
+</html>
