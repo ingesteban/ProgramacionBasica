@@ -1,0 +1,4 @@
+1. Llenar datos de prueba colocar 
+El pokemon se llama ... tiene una vida de ... un ataque de .. y su grito es ...
+Crear una imagen en base al nombre del pokemon de acuerdo con el nombre del pokemon.
+
