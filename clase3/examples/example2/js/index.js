@@ -22,6 +22,7 @@ function dibujarGrilla(l){
     var anchoLinea = 30;
     var limX = ancho / anchoLinea;
     var limY = alto / anchoLinea;
+    
     for (linea = 0; linea <= limX; linea ++){
         l.beginPath();
         l.strokeStyle = "#AAA";
@@ -30,6 +31,7 @@ function dibujarGrilla(l){
         l.closePath();
         l.stroke();
     }
+    
     for (linea = 0; linea <= limY; linea ++){
         l.beginPath();
         l.strokeStyle = "#AAA";
