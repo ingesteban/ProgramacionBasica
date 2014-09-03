@@ -3,7 +3,7 @@ function inicio (){
     dibujo = document.getElementById("dibujito");
     lienzo = dibujo.getContext("2d");
 
-    dibujarMariposa(lienzo);
+    dibujarGrilla(lienzo);
     
     //trazo nuevo
     lienzo.beginPath();
@@ -38,46 +38,4 @@ function dibujarGrilla(l){
         l.closePath();
         l.stroke();
     }
-}
-
-function dibujarMariposa(l){
-    var ancho = 300, alto = 300;
-    var lineas;
-    var anchoLinea = 10;
-    var limX = ancho / anchoLinea;
-    var limY = alto / anchoLinea;
-    for (linea = 0; linea <= limX; linea ++){
-        l.beginPath();
-        l.strokeStyle = "#AAA";
-        l.moveTo(0, linea * 10);
-        l.lineTo(linea * 10, 300);
-        l.closePath();
-        l.stroke();
-    }
-    for (linea = 0; linea <= limY; linea ++){
-        l.beginPath();
-        l.strokeStyle = "#AAA";
-        l.moveTo(linea * 10, 0);
-        l.lineTo(300, linea * 10);
-        l.closePath();
-        l.stroke();
-    }
-    
-    for (linea = 0; linea <= limX; linea ++){
-        l.beginPath();
-        l.strokeStyle = "#AAA";
-        l.moveTo(linea * 10, 300);
-        l.lineTo(300, (300 - (linea * 10)));
-        l.closePath();
-        l.stroke();
-    }
-    for (linea = 0; linea <= limX; linea ++){
-        l.beginPath();
-        l.strokeStyle = "#AAA";
-        l.moveTo((300 - (linea * 10)), 0);
-        l.lineTo(0 , (linea * 10));
-        l.closePath();
-        l.stroke();
-    }
-
 }
