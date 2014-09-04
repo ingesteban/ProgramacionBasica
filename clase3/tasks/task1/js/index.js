@@ -1,52 +1,71 @@
-//function Pokemon(nombrePoke, vidaPoke, ataquePoke){
-//	var estructuraPokemon = {
-//		nombre:nombrePoke,
-//		vida: vidaPoke,
-//		ataque: ataquePoke,
-//		datos:{
-//			tipo:"Tierra",
-//			debilidad:"Fuego"
-//		}
-//	}
-//	return estructuraPokemon;
-//}
+var lienzo;
 
-//var pikachu = Pokemon("Pikachu",100,55);
-//var bulbasaur = Pokemon("Bulbasaur",90,50);
+function inicio()
+{
+    var conten = document.getElementById('lienzo');
+    lienzo = conten.getContext("2d");
 
-
-//console.log(pikachu);
-
-
-function Pokemon(n, v, a, g){
-	this.grito = g;
-	this.nombre = n;
-	this.vida = v;
-	this.ataque = a;
-	this.gritar = function(){
-		alert(this.grito)
-	}
+    hacerX();
+    hacerCirculo();
 }
 
-var pikachu = new Pokemon("Pikachu",100,55);
-var rattata = new Pokemon("Rattata",40,13);
+function hacerX(){
 
+    var altoLienzo = lienzo.canvas.height;
+    var anchoLienzo = lienzo.canvas.width;
+    var espacioLineas = 30;
+    var numLineas = anchoLienzo /  espacioLineas;
+    var flag = true;
+    var punto2 = 0;
 
-function inicio(nombre,vida,ataque,grito)
-{
-    var pokemon = new Pokemon(nombre,vida,ataque,grito);
-    nombrePokemon.textContent = pokemon.nombre;
-    
-    var img = document.createElement('img');
-    img.src = 'images/'+pokemon.nombre.toLowerCase()+'.png';
-    img.className = "image-pokemon";
-        
-    var datos = "El pokemon se llama "+pokemon.nombre+", tiene una vida de "+pokemon.vida+", un ataque de "+pokemon.ataque+" y su grito es "+pokemon.grito;
-    
-    console.log(datos);
-    
-    imgPokemon.appendChild(img);
-    datosPokemon.textContent = datos;
+    for(i = 1; i <= numLineas; i++){
+        var punto = espacioLineas * i;
+        lienzo.beginPath();
+        lienzo.moveTo(punto2, punto);
+        lienzo.lineTo(punto, punto2);
+        lienzo.strokeStyle = "#AAA";
+        lienzo.lineWidth = 2;
+        lienzo.closePath();
+        lienzo.stroke();
+        if((i == numLineas) && (flag == true)){
+            var punto2 = 300;
+            var flag = false;
+            i = 0;
+        }
+    }
+
+    var flag = true;
+    var punto3 = 0;
+    var punto4 = 300;
+
+    for(i = 1; i <= numLineas; i++){
+        var punto1 = espacioLineas * i;
+        var punto2 = anchoLienzo - punto1;
+        lienzo.beginPath();
+        lienzo.moveTo(punto2, punto3);
+        lienzo.lineTo(punto4, punto1);
+        lienzo.strokeStyle = "#AAA";
+        lienzo.lineWidth = 2;
+        lienzo.closePath();
+        lienzo.stroke();
+        if((i == numLineas) && (flag == true)){
+            var punto3 = 300;
+            var punto4 = 0;
+            var flag = false;
+            i = 0;
+        }
+    }    
+}
+
+function hacerCirculo(){
+    lienzo.beginPath();
+    lienzo.arc(150,150, 100, (Math.PI * 2), false );
+    lienzo.strokeStyle = "#00F";
+    lienzo.fillStyle = "#F00";
+    lienzo.fill();
+    lienzo.lineWidth = 7;
+    lienzo.closePath();
+    lienzo.stroke();
 }
 
 
