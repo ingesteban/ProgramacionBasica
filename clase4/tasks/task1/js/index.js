@@ -1,76 +1,164 @@
-var lienzo;
+var tablero, direccion;
+
+var teclas = {
+	up: 38,
+	down : 40,
+	left: 37,
+	right:39
+};
+
+var fondos ={
+	imagenOK: false
+};
+
+var tifis = {
+	x:100,
+	y:100,
+	frenteURL: "images/diana-frente.png",
+	frenteOK: false,
+	atrasURL: "images/diana-atras.png",
+	atrasOK: false,
+	derURL: "images/diana-der.png",
+	derOK: false,
+	izqURL: "images/diana-izq.png",
+	izqOK: false,
+
+	velocidad: 50
+};
+
+var liz = {
+	x:400,
+	y:200,
+	lizURL: "images/liz.png",
+	lizOK: false,
+};
+
+
+var Imagen = function(url){
+	this.ima = new Image();
+	this.ima.src = url;
+	tthis = this;
+	this.ima.onload = function(){
+		tthis.imagenOK = true;
+		dibujar();
+	};
+}
 
 function inicio()
 {
-    var conten = document.getElementById('lienzo');
-    lienzo = conten.getContext("2d");
+	var canvas = document.getElementById('campo');
+	tablero = canvas.getContext('2d');
+	
+	var fondos = new Imagen("images/fondo.png");
 
-    lineas = document.getElementById("btn-lin");
-    circle = document.getElementById("btn-cir");
+	console.info(fondos);
 
-    lineas.addEventListener("click", hacerX);
-    circle.addEventListener("click", hacerCirculo);
+	
 
-  
+	tifis.frente = new Image();
+	tifis.frente.src = tifis.frenteURL;
+	tifis.frente.onload = confirmarFrente;
+
+	tifis.atras = new Image();
+	tifis.atras.src = tifis.atrasURL;
+	tifis.atras.onload = confirmarAtras;
+
+	tifis.izq = new Image();
+	tifis.izq.src = tifis.izqURL;
+	tifis.izq.onload = confirmarIzq;
+
+	tifis.der = new Image();
+	tifis.der.src = tifis.derURL;
+	tifis.der.onload = confirmarDer;
+
+	liz.liz = new Image();
+	liz.liz.src = liz.lizURL;
+	liz.liz.onload = confirmarLiz;
+
+	document.addEventListener('keydown', teclado);
+
 }
 
-function hacerX(){
 
-    var altoLienzo = lienzo.canvas.height;
-    var anchoLienzo = lienzo.canvas.width;
-    var espacioLineas = 30;
-    var numLineas = anchoLienzo /  espacioLineas;
-    var flag = true;
-    var punto2 = 0;
 
-    for(i = 1; i <= numLineas; i++){
-        var punto = espacioLineas * i;
-        lienzo.beginPath();
-        lienzo.moveTo(punto2, punto);
-        lienzo.lineTo(punto, punto2);
-        lienzo.strokeStyle = "#AAA";
-        lienzo.lineWidth = 2;
-        lienzo.closePath();
-        lienzo.stroke();
-        if((i == numLineas) && (flag == true)){
-            var punto2 = 300;
-            var flag = false;
-            i = 0;
+function teclado(datos){
+
+	var codigo = datos.keyCode;
+
+	if(codigo == teclas.up){
+		tifis.y -= tifis.velocidad;
+	}
+	if(codigo == teclas.down){
+		if(tifis.y<300)
+        {
+            tifis.y += tifis.velocidad;
         }
-    }
+	}
+	if(codigo == teclas.left){
+		tifis.x -= tifis.velocidad;
+	}
+	if(codigo == teclas.right){
+		tifis.x += tifis.velocidad;
+	}
 
-    var flag = true;
-    var punto3 = 0;
-    var punto4 = 300;
+	direccion = codigo;
 
-    for(i = 1; i <= numLineas; i++){
-        var punto1 = espacioLineas * i;
-        var punto2 = anchoLienzo - punto1;
-        lienzo.beginPath();
-        lienzo.moveTo(punto2, punto3);
-        lienzo.lineTo(punto4, punto1);
-        lienzo.strokeStyle = "#AAA";
-        lienzo.lineWidth = 2;
-        lienzo.closePath();
-        lienzo.stroke();
-        if((i == numLineas) && (flag == true)){
-            var punto3 = 300;
-            var punto4 = 0;
-            var flag = false;
-            i = 0;
-        }
-    }    
+	dibujar();
 }
 
-function hacerCirculo(){
-    lienzo.beginPath();
-    lienzo.arc(150,150, 100, (Math.PI * 2), false );
-    lienzo.strokeStyle = "#00F";
-    lienzo.fillStyle = "#F00";
-    lienzo.fill();
-    lienzo.lineWidth = 7;
-    lienzo.closePath();
-    lienzo.stroke();
+function confirmarFondo(){
+	fondo.imagenOK = true;
+	dibujar();
+}
+function confirmarFrente(){
+	tifis.frenteOK = true;
+	dibujar();	
+}
+function confirmarAtras(){
+	tifis.atrasOK = true;
+	dibujar();	
+}
+function confirmarIzq(){
+	tifis.izqOK = true;
+	dibujar();	
+}
+function confirmarDer(){
+	tifis.derOK = true;
+	dibujar();	
+}
+function confirmarLiz(){
+	liz.lizOK = true;
+	dibujar();	
 }
 
+function dibujar()
+{
+
+console.info(fondos.imagenOK);
+console.info(fondos.ima);
+
+	var tifiDibujo = tifis.frente;
+	if(fondos.imagenOK == true){
+		tablero.drawImage(fondos.ima,0,0);
+	}
+	if(tifis.frenteOK && tifis.atrasOK && tifis.izqOK && tifis.derOK){
+		if(direccion == teclas.up){
+			tifiDibujo = tifis.atras;
+		}
+		if(direccion == teclas.down){
+			tifiDibujo = tifis.frente;
+		}
+		if(direccion == teclas.left){
+			tifiDibujo = tifis.izq;
+		}
+		if(direccion == teclas.right){
+			tifiDibujo = tifis.der;
+		}
+
+		tablero.drawImage(tifiDibujo,tifis.x,tifis.y);
+	}
+	if(liz.lizOK == true){
+		tablero.drawImage(liz.liz,liz.x,liz.y);
+	}
+}
 
