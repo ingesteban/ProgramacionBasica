@@ -7,13 +7,14 @@ var teclas = {
 	right:39
 };
 
-var fondos ={
+var fondo ={
+	imagenUrl: "images/fondo.png",
 	imagenOK: false
 };
 
 var tifis = {
-	x:100,
-	y:100,
+	x:0,
+	y:0,
 	frenteURL: "images/diana-frente.png",
 	frenteOK: false,
 	atrasURL: "images/diana-atras.png",
@@ -33,27 +34,21 @@ var liz = {
 	lizOK: false,
 };
 
-
-var Imagen = function(url){
-	this.ima = new Image();
-	this.ima.src = url;
-	tthis = this;
-	this.ima.onload = function(){
-		tthis.imagenOK = true;
-		dibujar();
-	};
-}
+var gameover = {
+	x:0,
+	y:0,
+	gameURL: "images/gameover.png",
+	gameOK: false,
+};
 
 function inicio()
 {
 	var canvas = document.getElementById('campo');
 	tablero = canvas.getContext('2d');
 	
-	var fondos = new Imagen("images/fondo.png");
-
-	console.info(fondos);
-
-	
+	fondo.imagen = new Image();
+	fondo.imagen.src = fondo.imagenUrl;
+	fondo.imagen.onload = confirmarFondo;
 
 	tifis.frente = new Image();
 	tifis.frente.src = tifis.frenteURL;
@@ -75,35 +70,83 @@ function inicio()
 	liz.liz.src = liz.lizURL;
 	liz.liz.onload = confirmarLiz;
 
+	gameover.img = new Image();
+	gameover.img.src = gameover.gameURL;
+	gameover.img.onload = confirmarGameover;
+
 	document.addEventListener('keydown', teclado);
 
 }
 
-
-
 function teclado(datos){
 
 	var codigo = datos.keyCode;
+	var muerte = muere(tifis.x, tifis.y);
+	if(muerte == true){
+		gameOver();
+	}else{
 
-	if(codigo == teclas.up){
-		tifis.y -= tifis.velocidad;
+		if(codigo == teclas.up){
+			if(bordes(tifis.y, tifis.x, "menos", "y") == true){
+				tifis.y -= tifis.velocidad;
+			}
+		}
+		if(codigo == teclas.down){
+			if(bordes(tifis.y, tifis.x, "mas", "y") == true){
+	        	tifis.y += tifis.velocidad;
+	    	}
+		}
+		if(codigo == teclas.left){
+			if(bordes(tifis.x, tifis.y, "menos", "x") == true){
+				tifis.x -= tifis.velocidad;
+			}
+		}
+		if(codigo == teclas.right){
+			if(bordes(tifis.x, tifis.y, "mas", "x") == true){
+				tifis.x += tifis.velocidad;
+			}
+		}
+
+		direccion = codigo;
+		console.info(muerte);
+	
+		var muerte = muere(tifis.x, tifis.y);	
 	}
-	if(codigo == teclas.down){
-		if(tifis.y<300)
-        {
-            tifis.y += tifis.velocidad;
-        }
-	}
-	if(codigo == teclas.left){
-		tifis.x -= tifis.velocidad;
-	}
-	if(codigo == teclas.right){
-		tifis.x += tifis.velocidad;
+	
+	if(muerte == true){
+		gameOver();
+	}else{
+		dibujar();
 	}
 
-	direccion = codigo;
+}
 
-	dibujar();
+function bordes(coord, coor, code, type){
+	if(code == "mas"){
+		var coorde = coord + 50;
+	}else{
+		var coorde = coord - 50;
+	}
+	if (coorde > 451 ||
+		coorde < 0  ||
+		(coorde == 200 && type == "x" && coor < 249 ) ||
+		(coorde == 200 && type == "y" && (coor == 200 || coor <= 100 ))  ||
+		(coorde == 100 && type == "x" && coor == 200 )  ||
+		(coorde == 350 && type == "y" && coor >= 150 )  ||
+		(coorde == 150 && type == "x" && coor == 350 )
+		) {
+		return false
+	}else{
+		return true
+	}
+}
+function muere(x, y){
+	if (x == 400 && y == 200)
+	{
+		return true
+	}else{
+		return false
+	}
 }
 
 function confirmarFondo(){
@@ -130,16 +173,15 @@ function confirmarLiz(){
 	liz.lizOK = true;
 	dibujar();	
 }
+function confirmarGameover(){
+	gameover.gameOK = true;
+}
 
 function dibujar()
 {
-
-console.info(fondos.imagenOK);
-console.info(fondos.ima);
-
 	var tifiDibujo = tifis.frente;
-	if(fondos.imagenOK == true){
-		tablero.drawImage(fondos.ima,0,0);
+	if(fondo.imagenOK == true){
+		tablero.drawImage(fondo.imagen,0,0);
 	}
 	if(tifis.frenteOK && tifis.atrasOK && tifis.izqOK && tifis.derOK){
 		if(direccion == teclas.up){
@@ -159,6 +201,11 @@ console.info(fondos.ima);
 	}
 	if(liz.lizOK == true){
 		tablero.drawImage(liz.liz,liz.x,liz.y);
+	}
+}
+function gameOver(){
+	if(gameover.gameOK == true){
+		tablero.drawImage(gameover.img,gameover.x,gameover.y);
 	}
 }
 
