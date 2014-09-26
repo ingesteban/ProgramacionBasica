@@ -47,6 +47,49 @@ Ahorcado.prototype.dibujar = function()
 			dibujo.lineWidth = 5;
 			dibujo.stroke();
 			dibujo.closePath();
+
+			if(this.intentos > 2){
+				//intentos = 3 -> dibujar brazos
+				dibujo.beginPath();
+				dibujo.moveTo(120,220);
+				dibujo.lineTo(150,180);
+				dibujo.lineTo(180,220);
+				dibujo.strokeStyle = "red";
+				dibujo.lineWidth = 5;
+				dibujo.stroke();
+				dibujo.closePath();
+
+				if(this.intentos > 3){
+					//intentos = 4 -> dibujar piernas
+					dibujo.beginPath();
+					dibujo.moveTo(120,290);
+					dibujo.lineTo(150,250);
+					dibujo.lineTo(180,290);
+					dibujo.strokeStyle = "red";
+					dibujo.lineWidth = 5;
+					dibujo.stroke();
+					dibujo.closePath();
+
+					if(this.intentos > 4){
+						//intentos = 5 -> dibujar ojos muertos
+						dibujo.beginPath();
+						//Ojo Izquierdo
+						dibujo.moveTo(125,120);
+						dibujo.lineTo(145,145);
+						dibujo.moveTo(145,120);
+						dibujo.lineTo(125,145);
+						//Ojo Derecho
+						dibujo.moveTo(155,120);
+						dibujo.lineTo(175,145);
+						dibujo.moveTo(175,120);
+						dibujo.lineTo(155,145);
+						dibujo.strokeStyle = "blue";
+						dibujo.lineWidth = 5;
+						dibujo.stroke();
+						dibujo.closePath();
+					}
+				}
+			}
 		}
 	}
 }
@@ -66,6 +109,9 @@ function iniciar()
 	canvas.height = 400;
 	var contexto = canvas.getContext('2d');	
 	hombre = new Ahorcado(contexto);
+	hombre.trazar();
+	hombre.trazar();
+	hombre.trazar();
 	hombre.trazar();
 	hombre.trazar();
 }

@@ -196,8 +196,11 @@ function dibujar()
 		if(direccion == teclas.right){
 			tifiDibujo = tifis.der;
 		}
+		console.info(tablero);
 
 		tablero.drawImage(tifiDibujo,tifis.x,tifis.y);
+
+		console.info(tifiDibujo);
 	}
 	if(liz.lizOK == true){
 		tablero.drawImage(liz.liz,liz.x,liz.y);
